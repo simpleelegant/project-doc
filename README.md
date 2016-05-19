@@ -20,11 +20,11 @@ Or, directly download the binary in [releases](https://github.com/simpleelegant/
 mkdir -p docs/src
 cd docs/src
 
-# edit other documents
+# edit some markdown documents
 vim README.md
 vim News.md
 vim News_list.md
 
-# converting, output files will in docs/out
+# converting, output files will be in docs/out
 project-doc ../
 ```
