@@ -3,7 +3,6 @@ package list
 import (
 	"fmt"
 	"html"
-	"net/url"
 	"os"
 	"path"
 	"strings"
@@ -122,7 +121,7 @@ func (l List) ToHTML() string {
 			out += fmt.Sprintf("<a class=\"h\">%s</a>", html.EscapeString(v.DisplayName))
 		} else {
 			out += fmt.Sprintf("<a class=\"h\" href=\"%s\">%s</a>",
-				url.QueryEscape(v.OutName),
+				encodeURI(v.OutName),
 				html.EscapeString(v.DisplayName),
 			)
 		}
@@ -131,7 +130,7 @@ func (l List) ToHTML() string {
 			out += "<ul>"
 			for _, w := range v.Sub {
 				out += fmt.Sprintf("<li><a href=\"%s\">%s</a></li>",
-					url.QueryEscape(w.OutName),
+					encodeURI(w.OutName),
 					html.EscapeString(w.DisplayName),
 				)
 			}
@@ -143,4 +142,8 @@ func (l List) ToHTML() string {
 	out += "</ul>"
 
 	return out
+}
+
+func encodeURI(s string) string {
+	return strings.Replace(s, " ", "%20", -1)
 }
