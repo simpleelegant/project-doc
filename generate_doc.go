@@ -39,32 +39,26 @@ const tmpl = `
         }
         pre code {
             border: 0;
+            padding: 0;
         }
 
         .body {
-            height: auto;
             max-width: 980px;
             margin: 0px auto;
-            position: relative;
         }
 
         .left {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 250px;
-        }
-
+			margin: 30px 250px 20px 0;
+		}
         .right {
-            position: absolute;
-            top: 20px;
-            right: 0;
+			margin: 20px 0;
             border: 1px solid #DDD;
             border-radius: 4px;
             overflow: hidden;
             width: 220px;
             background-color: #F5F5F5;
 			font-size: 0.9em;
+			float: right;
         }
 
         .right ul {
@@ -93,8 +87,8 @@ const tmpl = `
 
 <body>
     <div class="body">
-        <div class="left">%s</div>
         <div class="right">%s</div>
+        <div class="left">%s</div>
     </div>
 </body>
 
@@ -138,5 +132,5 @@ func md2HTML(srcName, outName, contents string) error {
 	html := blackfriday.MarkdownCommon(data)
 
 	// write file
-	return ioutil.WriteFile(outName, []byte(fmt.Sprintf(tmpl, html, contents)), 0644)
+	return ioutil.WriteFile(outName, []byte(fmt.Sprintf(tmpl, contents, html)), 0644)
 }
