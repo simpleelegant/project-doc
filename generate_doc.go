@@ -103,6 +103,7 @@ func generateDoc(base, src, out string) error {
 
 	docs := list.New(fileInfos)
 	docs.SetHomePage()
+	docs.SetTopDoc()
 	contents := docs.ToHTML()
 
 	for _, v := range docs {

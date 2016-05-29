@@ -103,9 +103,22 @@ func (l List) SetHomePage() {
 	}
 
 	for k, v := range l {
-		if strings.ToLower(v.DisplayName) == "readme" {
+		if strings.EqualFold(v.DisplayName, "readme") {
 			l[k].OutName = "index.html"
 			return
+		}
+	}
+}
+
+// SetTopDoc make homepage at top
+func (l List) SetTopDoc() {
+	for k, v := range l {
+		if v.OutName == "index.html" {
+			for k > 0 {
+				l[k-1], l[k] = l[k], l[k-1]
+				k -= 1
+			}
+			break
 		}
 	}
 }
