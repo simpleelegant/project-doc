@@ -71,8 +71,7 @@ const tmpl = `
             display: block;
             text-decoration: none;
             color: #4183C4;
-            line-height: 32px;
-            padding: 0 10px 0 2em;
+            padding: 8px 8px 8px 2em;
             border-bottom: 1px solid #E8E8E8;
         }
 
@@ -82,6 +81,9 @@ const tmpl = `
             background-color: #FFF;
 			font-size: 1.2em;
         }
+		.right a:hover {
+			  background-color: antiquewhite;
+		}
     </style>
 </head>
 
