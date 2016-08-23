@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
+	"strings"
 
 	"github.com/russross/blackfriday"
 	"github.com/simpleelegant/project-doc/list"
@@ -22,8 +22,6 @@ const tmpl = `
         code {
             font-family: Consolas, "Fira Mono", "Liberation Mono", Courier, "Microsoft Yahei", monospace;
             color: red;
-            border: 1px solid #CECECE;
-            border-radius: 4px;
             padding: 2px 4px;
             font-size: 0.9em;
         }
@@ -38,9 +36,29 @@ const tmpl = `
             margin: 2em 0px;
         }
         pre code {
-            border: 0;
             padding: 0;
         }
+
+		table {
+			border: 1px solid #CCC;
+			border-collapse: collapse;
+			width: 100%;
+			margin-bottom: 20px;
+		}
+
+		th {
+			border: 1px solid #CCC;
+			background-color: aliceblue;
+			white-space: nowrap;
+			text-align:left;
+			padding: 4px;
+		}
+
+		td {
+			border: 1px solid #CCC;
+			padding: 4px;
+			word-break: break-word;
+		}
 
         .body {
             max-width: 980px;
@@ -89,8 +107,8 @@ const tmpl = `
 
 <body>
     <div class="body">
-        <div class="right">%s</div>
-        <div class="left">%s</div>
+        <div class="right">{{right}}</div>
+        <div class="left">{{left}}</div>
     </div>
 </body>
 
@@ -134,6 +152,12 @@ func md2HTML(srcName, outName, contents string) error {
 	// markdown to html
 	html := blackfriday.MarkdownCommon(data)
 
+	out := strings.Replace(
+		strings.Replace(tmpl, "{{right}}", contents, 1),
+		"{{left}}",
+		string(html),
+		1)
+
 	// write file
-	return ioutil.WriteFile(outName, []byte(fmt.Sprintf(tmpl, contents, html)), 0644)
+	return ioutil.WriteFile(outName, []byte(out), 0644)
 }
